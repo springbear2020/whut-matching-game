@@ -8,7 +8,7 @@
 #include "LLKDlg.h"
 #include "afxdialogex.h"
 #include"CGameDlg.h"
-#include"CVersionDlg.h"
+#include"BackgroundMusic.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -68,7 +68,6 @@ BEGIN_MESSAGE_MAP(CLLKDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BTN_BASIC, &CLLKDlg::OnClickedBtnBasic)
-	ON_BN_CLICKED(IDC_BTN_HELP, &CLLKDlg::OnBnClickedBtnHelp)
 END_MESSAGE_MAP()
 
 
@@ -79,6 +78,10 @@ BOOL CLLKDlg::OnInitDialog()
 	CDialogEx::OnInitDialog();
 
 	// Add "About..." menu item to system menu.
+	//默认打开游戏主界面就开始播放音乐
+	//播放背景音乐
+	BackgroundMusic bgm;
+	bgm.playBackgroundMusic();
 
 	// IDM_ABOUTBOX must be in the system command range.
 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
@@ -190,10 +193,3 @@ void CLLKDlg::OnClickedBtnBasic()
 	this->ShowWindow(SW_SHOW);
 }
 
-
-void CLLKDlg::OnBnClickedBtnHelp()
-{
-	// TODO: Add your control notification handler code here
-	CVersionDlg cvd;
-	cvd.DoModal();
-}

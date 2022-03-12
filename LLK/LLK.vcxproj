@@ -183,10 +183,13 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BackgroundMusic.h" />
     <ClInclude Include="CGameControl.h" />
     <ClInclude Include="CGameDlg.h" />
     <ClInclude Include="CGameLogic.h" />
     <ClInclude Include="CGraph.h" />
+    <ClInclude Include="CHelpDialog.h" />
+    <ClInclude Include="CSettingDialog.h" />
     <ClInclude Include="CVersionDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="global.h" />
@@ -197,10 +200,13 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BackgroundMusic.cpp" />
     <ClCompile Include="CGameControl.cpp" />
     <ClCompile Include="CGameDlg.cpp" />
     <ClCompile Include="CGameLogic.cpp" />
     <ClCompile Include="CGraph.cpp" />
+    <ClCompile Include="CHelpDialog.cpp" />
+    <ClCompile Include="CSettingDialog.cpp" />
     <ClCompile Include="CVersionDlg.cpp" />
     <ClCompile Include="LLK.cpp" />
     <ClCompile Include="LLKDlg.cpp" />
@@ -218,6 +224,7 @@
     <None Include="res\LLK.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\Copyright.bmp" />
     <Image Include="res\LLK.ico" />
     <Image Include="res\llk_main.bmp" />
   </ItemGroup>

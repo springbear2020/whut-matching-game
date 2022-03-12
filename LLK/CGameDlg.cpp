@@ -6,8 +6,9 @@
 #include "afxdialogex.h"
 #include"CGameControl.h"
 #include"CGameLogic.h"
-
-
+#include"CHelpDialog.h"
+#include"CVersionDlg.h"
+#include"CSettingDialog.h"
 
 // CGameDlg dialog
 
@@ -53,6 +54,9 @@ BEGIN_MESSAGE_MAP(CGameDlg, CDialogEx)
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDC_BTN_PAUSE, &CGameDlg::OnBnClickedBtnPause)
 	ON_BN_CLICKED(IDC_BTN_HELP, &CGameDlg::OnBnClickedBtnHelp)
+	ON_BN_CLICKED(IDC_BTN_ABOUT, &CGameDlg::OnBnClickedBtnAbout)
+	ON_BN_CLICKED(IDC_BTN_SETTING, &CGameDlg::OnBnClickedBtnSetting)
+	ON_BN_CLICKED(IDC_BTN_GAMEOVER, &CGameDlg::OnBnClickedBtnGameover)
 END_MESSAGE_MAP()
 
 //初始化窗口背景和大小
@@ -101,7 +105,6 @@ BOOL CGameDlg::OnInitDialog()
 	//设置进度条隐藏和剩余时间控件
 	this->GetDlgItem(IDC_GAME_TIME)->ShowWindow(FALSE);
 	this->GetDlgItem(IDC_EDIT_TIME)->ShowWindow(FALSE);
-
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // EXCEPTION: OCX Property Pages should return FALSE
@@ -490,5 +493,30 @@ void CGameDlg::OnChangeEditTime()
 void CGameDlg::OnBnClickedBtnHelp()
 {
 	// TODO: Add your control notification handler code here
+	CHelpDialog chd;
+	chd.DoModal();
+}
 
+
+void CGameDlg::OnBnClickedBtnAbout()
+{
+	// TODO: Add your control notification handler code here
+	CVersionDlg cvd;
+	cvd.DoModal();
+}
+
+
+void CGameDlg::OnBnClickedBtnSetting()
+{
+	// TODO: Add your control notification handler code here
+	CSettingDialog csd;
+	csd.DoModal();
+}
+
+
+void CGameDlg::OnBnClickedBtnGameover()
+{
+	// TODO: Add your control notification handler code here
+
+	CDialogEx::OnCancel();
 }

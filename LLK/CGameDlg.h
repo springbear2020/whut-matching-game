@@ -61,4 +61,7 @@ public:
 	afx_msg void OnBnClickedBtnPause();
 	afx_msg void OnChangeEditTime();
 	afx_msg void OnBnClickedBtnHelp();
+	afx_msg void OnBnClickedBtnAbout();
+	afx_msg void OnBnClickedBtnSetting();
+	afx_msg void OnBnClickedBtnGameover();
 };

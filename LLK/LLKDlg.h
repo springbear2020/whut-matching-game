@@ -36,5 +36,4 @@ protected:
 	void InitBackground();
 public:
 	afx_msg void OnClickedBtnBasic();
-	afx_msg void OnBnClickedBtnHelp();
 };

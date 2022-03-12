@@ -51,6 +51,15 @@
     <ClInclude Include="CVersionDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CHelpDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSettingDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundMusic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LLK.cpp">
@@ -77,6 +86,15 @@
     <ClCompile Include="CVersionDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CHelpDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CSettingDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundMusic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="LLK.rc">
@@ -93,6 +111,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\llk_main.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Copyright.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
