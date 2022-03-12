@@ -9,6 +9,9 @@ typedef struct tagVertex
 }Vertex;
 
 #define BLANK -1
+#define MAX_VERTEX_NUM 16   //顶点的个数
+#define MAX_ROW 4	  //初始行数
+#define MAX_COL 4	  //初始列数
 
 
  

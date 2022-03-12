@@ -17,6 +17,8 @@ public:
 	enum { IDD = IDD__GAME_DIALOG };
 #endif
 
+
+
 protected:
 	HICON m_icon;
 	CDC m_dcMem;        //内存DC
@@ -24,23 +26,24 @@ protected:
 	CDC m_dcMask;      //掩码内存DC
 	CDC m_dcBG;        //背景DC
 
+	bool m_bFirstPoint;   //选中的图片是不是第一次选中，默认为是
 	CPoint m_ptGameTop;   //游戏起始坐标
 	CSize m_sizeElem;     //图片元素大小
 	CRect m_rtGameRect;
 
-	CGameControl m_GameC;
+	CGameControl m_GameC;    //游戏控制类
 
-	bool m_bFirstPoint;   //选中的图片是不是第一次选中，默认为是
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	DECLARE_MESSAGE_MAP()
+
 public:
 	void InitBackground();          //初始化背景
 	void InitElement();             //初始化元素
-	void DrawTipFrame(int nRow, int nCol);   //绘制提示框
 	void UpdateWindow();            //调整窗口大小
 	void UpdateMap();               //更新游戏地图
+	void DrawTipFrame(int nRow, int nCol);   //绘制提示框
 	void DrawTipLine(Vertex asvPath[4], int nVexnum);             //画提示线
 
 	virtual BOOL OnInitDialog();    //初始化对话框
