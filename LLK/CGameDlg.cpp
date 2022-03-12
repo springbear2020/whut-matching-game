@@ -193,7 +193,7 @@ void CGameDlg::DrawTipFrame(int nRow, int nCol)
 }
 
 //绘制提示线
-void CGameDlg::DrawTipLine(Vertex asvPath[2])
+void CGameDlg::DrawTipLine(Vertex asvPath[4], int nVexnum)
 {
 	//获取DC
 	CClientDC dc(this);
@@ -204,8 +204,11 @@ void CGameDlg::DrawTipLine(Vertex asvPath[2])
 
 	//绘制连接线
 	dc.MoveTo(m_ptGameTop.x + asvPath[0].col * m_sizeElem.cx + m_sizeElem.cx / 2,m_ptGameTop.y + asvPath[0].row * m_sizeElem.cy + m_sizeElem.cy / 2);
-	dc.LineTo(m_ptGameTop.x + asvPath[1].col * m_sizeElem.cx + m_sizeElem.cx / 2,m_ptGameTop.y + asvPath[1].row * m_sizeElem.cy + m_sizeElem.cy / 2);
-
+	//绘制连接线
+	for (int i = 0; i < nVexnum - 1; i++)
+	{
+		dc.LineTo(m_ptGameTop.x + asvPath[i + 1].col * m_sizeElem.cx + m_sizeElem.cx / 2,m_ptGameTop.y + asvPath[i + 1].row * m_sizeElem.cy + m_sizeElem.cy / 2);
+	}
 	dc.SelectObject(pOldPen);
 }
 
@@ -249,13 +252,14 @@ void CGameDlg::OnLButtonUp(UINT nFlags, CPoint point)
 		DrawTipFrame(nRow, nCol);
 		m_GameC.SetSecPoint(nRow, nCol);
 
-		//获得路径
-		Vertex avPath[2];
+		Vertex avPath[4];     //获得路径   16为路径最长（不会到16条路径的）
+		int nVexnum = 0;      //顶点个数
+
 		//连子判断
-		if (m_GameC.Link(avPath))
+		if (m_GameC.Link(avPath, nVexnum))
 		{
 			//画提示线
-			DrawTipLine(avPath);
+			DrawTipLine(avPath, nVexnum);
 			//更新地图
 			UpdateMap();
 		}

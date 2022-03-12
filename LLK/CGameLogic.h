@@ -13,6 +13,8 @@ public:
 	bool LineY(int anMap[][4], int nRow1, int nRow2, int nCol);
 	bool OneCornerLink(int anMap[][4], Vertex v1, Vertex v2);
 	bool TwoCornerLink(int anMap[][4], Vertex v1, Vertex v2);
+	CGameLogic::CGameLogic(void);   //构造函数
+	int GetVexPath(Vertex avPath[4]);   //通过参数返回路径
 protected:
 	Vertex m_avPath[4];   //保存在进行连接判断时所经过的顶点
 	int m_nVexNum;   //顶点数

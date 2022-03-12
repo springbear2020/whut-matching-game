@@ -29,7 +29,7 @@ void CGameControl::SetSecPoint(int nRow, int nCol)
 }
 
 //连线
-bool CGameControl::Link(Vertex avPath[2])
+bool CGameControl::Link(Vertex avPath[4], int& nVexnum)
 {
 	//判断两次选中的是否是同一个点
 	if (m_svSelFst.row == m_svSelSec.row && m_svSelFst.col == m_svSelSec.col)
@@ -51,8 +51,7 @@ bool CGameControl::Link(Vertex avPath[2])
 		logic.Clear(m_anMap, m_svSelFst, m_svSelSec);
 
 		//返回路径顶点
-		avPath[0] = m_svSelFst;
-		avPath[1] = m_svSelSec;
+		nVexnum = logic.GetVexPath(avPath);
 		return true;
 	} 
 	return false;

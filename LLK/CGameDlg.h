@@ -42,7 +42,7 @@ public:
 	void DrawTipFrame(int nRow, int nCol);   //绘制提示框
 	void UpdateWindow();            //调整窗口大小
 	void UpdateMap();               //更新游戏地图
-	void DrawTipLine(Vertex asvPath[2]);             //画提示线
+	void DrawTipLine(Vertex asvPath[4], int nVexnum);             //画提示线
 
 	afx_msg void OnPaint();
 	afx_msg void OnClickedBtnStart();      //开始游戏按钮
