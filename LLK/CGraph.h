@@ -5,7 +5,7 @@ class CGraph
 public:
 	CGraph();
 protected:
-#define MAX_VERTEX_NUM 16   //数据元素的个数
+    #define MAX_VERTEX_NUM 16   //数据元素的个数
     //顶点的数据类型
 	typedef int Vertices[MAX_VERTEX_NUM];
 	//边的数据类型
@@ -15,8 +15,13 @@ protected:
 	AdjMatrix m_AdjMatrix;   //关系数组
 	int m_nVexnum;   //顶点数量
 	int m_nArcnum;   //边的数量
-public:
+
 	void InitGraph(void);   //初始化图的顶点和关系
+public:
+	int AddVertex(int nInfo);   //将顶点info加入到顶点数组中
+	int GetVertex(int ninfo);   //获取顶i的那数组中索引为nIndex的顶点
+	int GetVexnum(void);   //获取顶点数组中的顶点数
+	void AddArc(int nV1Index, int nV2Index);  //添加nV1Index与nV2Index的关系
 };
 
  

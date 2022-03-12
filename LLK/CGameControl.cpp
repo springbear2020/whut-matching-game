@@ -11,7 +11,7 @@ void CGameControl::StartGame(void)
 //返回元素信息
 int CGameControl::GetElement(int nRow, int nCol)
 {
-	return 0;
+	return m_graph.GetVertex(nRow * 4 + nCol);
 }
 
 //设置第一个点
