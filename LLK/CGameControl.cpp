@@ -71,3 +71,25 @@ bool CGameControl::IsWin()
 	}
 	return false;
 }
+
+//在地图中查找可以消除的一堆照片，返回连接路径和路径上的顶点数
+bool CGameControl::Help(Vertex avPath[MAX_VERTEX_NUM], int& nVexnum)
+{
+	CGameLogic logic;
+
+	//判断是否为空
+	if (logic.IsBlank(m_graph) == true)
+	{
+		return false;
+	}
+
+	//查找一条有效的提示路径
+	if (logic.SearchValidPath(m_graph))
+	{
+		//返回路径顶点
+		nVexnum = logic.GetVexPath(avPath);
+		return true;
+	}
+	return false;
+
+}

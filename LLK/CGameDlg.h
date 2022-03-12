@@ -53,4 +53,5 @@ public:
 	afx_msg void OnPaint();
 	afx_msg void OnClickedBtnStart();      //开始游戏按钮
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);    //游戏地图内鼠标点击事件
+	afx_msg void OnBnClickedBtnNotice();
 };

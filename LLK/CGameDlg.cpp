@@ -46,6 +46,7 @@ BEGIN_MESSAGE_MAP(CGameDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_BN_CLICKED(IDC_BTN_START, &CGameDlg::OnClickedBtnStart)
 	ON_WM_LBUTTONUP()
+	ON_BN_CLICKED(IDC_BTN_NOTICE, &CGameDlg::OnBnClickedBtnNotice)
 END_MESSAGE_MAP()
 
 // CGameDlg message handlers
@@ -297,4 +298,37 @@ void CGameDlg::OnLButtonUp(UINT nFlags, CPoint point)
 		}
 	}
 	m_bFirstPoint = !m_bFirstPoint;
+}
+
+//提示按钮时间响应
+void CGameDlg::OnBnClickedBtnNotice()
+{
+	//如果没有进行游戏，则放回
+	if (m_bPlaying == false)
+	{
+		return;
+	}
+
+	//如果能够连通，绘制提示框和连接线并更新游戏地图
+	Vertex avPath[MAX_VERTEX_NUM];   //获得路径
+	int nVexnum = 0;   //顶点个数
+
+	if (m_GameC.Help(avPath, nVexnum))
+	{
+		//画第一个点的提示框
+		DrawTipFrame(avPath[0].row, avPath[0].col);
+		DrawTipFrame(avPath[nVexnum - 1].row, avPath[nVexnum - 1].col); 
+
+		//画提示线
+		DrawTipLine(avPath, nVexnum);
+
+		//为了使第二个提示框可以看到，暂停200ms后，再刷新页面
+		Sleep(1000);   
+
+		UpdateMap();  //更新地图
+
+		//局部矩形更新
+		InvalidateRect(m_rtGameRect, FALSE);
+	}
+
 }

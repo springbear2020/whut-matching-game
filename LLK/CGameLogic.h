@@ -26,5 +26,7 @@ public:
 	bool IsExsit(int nVi);   //判断索引为nVi的顶点是否保存到连通数组m_anPath中
 	bool IsCorner(void);   //判断连接路径数组中，连续三个顶点是否构成一个拐点
 	bool IsBlank(CGraph& g);   //判断图g中所有的顶点是否为空
+	bool SearchValidPath(CGraph& g);   //查找一对可以消除的图片
+
 };
 

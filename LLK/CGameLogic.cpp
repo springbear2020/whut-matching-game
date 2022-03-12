@@ -252,3 +252,39 @@ bool CGameLogic::IsBlank(CGraph& g)
 	return true;
 }
 
+bool CGameLogic::SearchValidPath(CGraph& g)
+{
+	//得到顶点数
+	int nVexnum = g.GetVexnum();
+
+	for (int i = 0; i < nVexnum; i++)
+	{
+		//得到第一个非空顶点
+		if (g.GetVertex(i) == BLANK)
+		{
+			continue;
+		}
+		//遍历得到第二个同色顶点
+		for (int j = 0; j < nVexnum; j++)
+		{
+			if (i != j)
+			{
+				//如果第i个点和第j个点同色
+				if (g.GetVertex(i) == g.GetVertex(j))
+				{
+					//压入第一个点
+					PushVertex(i);
+
+					if (SearchPath(g, i, j) == true)
+					{
+						return true;
+					}
+
+					//取出压入的顶点时，与PushVertex(i)对应
+					PopVertex();
+				}
+			}
+		}
+	}
+	return false;
+}
