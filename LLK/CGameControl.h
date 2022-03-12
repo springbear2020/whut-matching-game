@@ -6,7 +6,7 @@ class CGameControl
 public:
 	int m_anMap[4][4];   //游戏地图
 	//x->col,y->row
-	Vertex m_svSelFirst;   //第一次选中的点(x表示列)
+	Vertex m_svSelFst;   //第一次选中的点(x表示列)
 	Vertex m_svSelSec;
 public:
 	void StartGame(void);   //开始游戏

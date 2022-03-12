@@ -18,7 +18,37 @@ void CGameLogic::InitMap(int anMap[][4])
 //判断是否连线
 bool CGameLogic::IsLink(int anMap[][4], Vertex v1, Vertex v2)
 {
-	if (anMap[v1.row][v1.col] == anMap[v2.row][v2.col]) 
+	int nCol1 = v1.col;
+	int nCol2 = v2.col;
+	int nRow1 = v1.row;
+	int nRow2 = v2.row;
+
+	//一条直线横向连通
+	if (nRow1 == nRow2)
+	{
+		if (LinkInRow(anMap, v1, v2) == true)
+		{
+			return true;
+		}
+	}
+
+	//一条直线竖向连通
+	if (nCol1 == nCol2)
+	{
+		if (LinkInCol(anMap, v1, v2))
+		{
+			return true;
+		}
+	}
+
+	//两条直线连通
+	if (OneCornerLink(anMap, v1, v2))
+	{
+		return true;
+	}
+
+	//三条直线连通
+	if (TwoCornerLink(anMap, v1, v2))
 	{
 		return true;
 	}
@@ -26,8 +56,251 @@ bool CGameLogic::IsLink(int anMap[][4], Vertex v1, Vertex v2)
 }
 
 //消子
-void CGameLogic::Clear(int anMap[][4], Vertex v1, Vertex v2) 
+void CGameLogic::Clear(int anMap[][4], Vertex v1, Vertex v2)
 {
 	anMap[v1.row][v1.col] = BLANK;
 	anMap[v2.row][v2.col] = BLANK;
+}
+
+
+//行号相同，判断横向是否连通
+bool CGameLogic::LinkInRow(int anMap[][4], Vertex v1, Vertex v2)
+{
+	int nCol1 = v1.col;
+	int nCol2 = v2.col;
+	int nRow = v1.row;
+
+	//直通
+	for (int i = nCol1 + 1; i <= nCol2; i++)
+	{
+		if (i == nCol2)
+			return true;
+		if (anMap[nRow][i] != BLANK)
+			break;
+	}
+	return false;
+}
+
+//列号相同，判断竖向是否连通
+bool CGameLogic::LinkInCol(int anMap[][4], Vertex v1, Vertex v2)
+{
+	int nRow1 = v1.row;
+	int nRow2 = v2.row;
+	int nCol = v1.col;
+
+	for (int i = nRow1 + 1; i <= nRow2; i++)
+	{
+		if (i == nRow2)
+			return true;
+		if (anMap[i][nCol] != BLANK)
+			break;
+	}
+	return false;
+}
+
+//判断同行不同列的两个点是否连通
+bool CGameLogic::LineX(int anMap[][4], int nRow, int nCol1, int nCol2)
+{
+	//判断（nRow,nCol1)到(nRow,nCol2)能否连通
+	for (int nCol = nCol1; nCol <= nCol2; nCol++)
+	{
+		if (anMap[nRow][nCol] != BLANK)
+			break;
+		if (nCol == nCol2)
+			return true;
+	}
+	return false;
+}
+
+//判断同列不同行的两个点能够连通
+bool CGameLogic::LineY(int anMap[][4], int nRow1, int nRow2, int nCol)
+{
+	//判断(nRow1,nCol)到(nRow2,nCol)是否连通
+	for (int nRow = nRow1; nRow <= nRow2; nRow++)
+	{
+		if (anMap[nRow][nCol] != BLANK)
+			break;
+		if (nRow == nRow2)
+			return true;
+	}
+}
+
+//判断一个拐角是否连通
+bool CGameLogic::OneCornerLink(int anMap[][4], Vertex v1, Vertex v2)
+{
+	int nCol1 = v1.col;
+	int nCol2 = v2.col;
+	int nRow1 = v1.row;
+	int nRow2 = v2.row;
+
+	if (nRow1 > nRow2)   //确保nRow1<nRow2,保证(nRow1,nCon1)始终在(nRow2,nCon2)的上方
+	{
+		int nTemp;
+		nTemp = nRow1;
+		nRow1 = nRow2;
+		nRow2 = nTemp;
+
+		nTemp = nCol1;
+		nCol1 = nCol2;
+		nCol2 = nTemp;
+	}
+
+	if (nCol2 < nCol1)
+	{
+		//判断(nRow+1,nCon1)到(nRow2,nCol2+1)能否连通(先下后左)
+		if (LineY(anMap, nRow1 + 1, nRow2, nCol1) && LineX(anMap, nRow2, nCol2 + 1, nCol1))
+		{
+			return true;
+		}
+		//判断(nRow2-1,nCon2)到(nRow1,nCol1-1)能否连通(先上后右)
+		if (LineY(anMap, nRow2 - 1, nRow1, nCol2) && LineX(anMap, nRow1, nCol2, nCol1 - 1))
+		{
+			return true;
+		}
+	}
+	else
+	{
+		//判断(nRow1+1,nCon1)到(nRow2,nCol2-1能否连通(先下后右)
+		if (LineY(anMap, nRow1 + 1, nRow2, nCol1) && LineX(anMap, nRow2, nCol1, nCol2 - 1))
+		{
+			return true;
+		}
+		//判断(nRow2-1,nCon2)到(nRow1,nCol1+1)能否连通(先上后左)
+		if (LineY(anMap, nRow2 - 1, nRow1, nCol2) && LineX(anMap, nRow1, nCol2, nCol1 + 1))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+//判断两个拐角能否连通
+bool CGameLogic::TwoCornerLink(int anMap[][4], Vertex v1, Vertex v2)
+{
+	int nCol1 = v1.col;
+	int nCol2 = v2.col;
+	int nRow1 = v1.row;
+	int nRow2 = v2.row;
+
+	if (nRow1 > nRow2)   //确保nRow1<nRow2,保证(nRow1,nCon1)始终在(nRow2,nCon2)的上方
+	{
+		int nTemp;
+		nTemp = nRow1;
+		nRow1 = nRow2;
+		nRow2 = nTemp;
+
+		nTemp = nCol1;
+		nCol1 = nCol2;
+		nCol2 = nTemp;
+	}
+
+	if (nCol2 < nCol1)
+	{
+		//找到一条与Y轴平行的连通直线段
+		for (int nCol = 0; nCol < 4; nCol++)
+		{
+			if (anMap[nRow1][nCol] == BLANK && anMap[nRow2][nCol] == BLANK)
+			{
+				//判断该条y轴直线是否连通
+				if (LineY(anMap, nRow1, nRow2, nCol))
+				{
+					if (nCol2 > nCol && LineX(anMap, nRow1, nCol - 1, nCol) && LineX(anMap, nRow2, nCol, nCol2 - 1))
+					{
+						return true;
+					}
+					//连通的直线在选中的两个点的中间
+					if (nCol1 > nCol && nCol > nCol2 && LineX(anMap, nRow1, nCol, nCol1 - 1) && LineX(anMap, nRow2, nCol2 + 1, nCol))
+					{
+						return true;
+					}
+					//连通的直线在选中的两个点的右边
+					if (nCol > nCol1 && LineX(anMap, nRow1, nCol1 + 1, nCol) && LineX(anMap, nRow2, nCol, nCol2 + 1))
+					{
+						return true;
+					}
+				}
+			}
+		}
+	
+		//找到一条与X轴平行的连通直线段
+		for (int nRow = 0; nRow < 4; nRow++)
+		{
+			if (anMap[nRow][nCol1] == BLANK && anMap[nRow][nCol2] == BLANK)
+			{
+				if (LineX(anMap, nRow, nCol1, nCol2)) //判断该条Y轴直线是否连通
+				{
+					//连通的直线在选中的两个点的上面
+					if (nRow1 > nRow && LineY(anMap, nRow1 - 1, nRow, nCol1) && LineY(anMap, nRow, nRow2 - 1, nCol2))
+					{
+						return true;
+					}
+					//连通的直线在选中的两个点的中间
+					if (nRow2 > nRow && nRow > nRow1 && LineY(anMap, nRow1 + 1, nRow, nCol1) && LineY(anMap, nRow, nRow2 - 1, nCol2))
+					{
+						return true;
+					}
+					//连通的直线在选中的两个点的下面
+					if (nRow > nRow2 && LineY(anMap, nRow1 + 1, nRow, nCol1) && LineY(anMap, nRow, nRow2 + 1, nCol2))
+					{
+						return true;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		//找到一条与Y轴平行的连通直线段
+		for (int nCol = 0; nCol < 4; nCol++)
+		{
+			if (anMap[nRow1][nCol] == BLANK && anMap[nRow2][nCol] == BLANK)
+			{
+				if (LineY(anMap, nRow1, nRow2, nCol)) //判断该条Y轴直线是否连通
+				{
+					//连通的直线在选中的两个左边
+					if (nCol1 > nCol && LineX(anMap, nRow1, nCol1 - 1, nCol) && LineX(anMap, nRow2, nCol, nCol2 - 1))
+					{
+						return true;
+					}
+					//连通的直线在选中的两个点之间
+					if (nCol2 > nCol && nCol > nCol1 && LineX(anMap, nRow1, nCol1 + 1, nCol) && LineX(anMap, nRow2, nCol, nCol2 - 1))
+					{
+						return true;
+					}
+					//连通的直线在选中的两个点右边
+					if (nCol > nCol2 && LineX(anMap, nRow1, nCol1 + 1, nCol) && LineX(anMap, nRow2, nCol, nCol2 + 1))
+					{
+						return true;
+					}
+				}
+			}
+		}
+
+		//找到一条与X轴平行的连通直线段
+		for (int nRow = 0; nRow < 4; nRow++)
+		{
+			if (anMap[nRow][nCol1] == BLANK && anMap[nRow][nCol2] == BLANK)
+			{
+				if (LineX(anMap, nRow, nCol1, nCol2)) //判断该条Y轴直线是否连通
+				{
+					//连通直线在两个点上面
+					if (nRow1 > nRow && LineY(anMap, nRow1 - 1, nRow, nCol1) && LineY(anMap, nRow, nRow2 - 1, nCol2))
+					{
+						return true;
+					}
+					//连通直线在两个点之间
+					if (nRow2 > nRow && nRow > nRow1 && LineY(anMap, nRow1 + 1, nRow, nCol1) && LineY(anMap, nRow, nRow2 - 1, nCol2))
+					{
+						return true;
+					}
+					//连通直线在两个点下面
+					if (nRow > nRow2 && LineY(anMap, nRow1 + 1, nRow, nCol1) && LineY(anMap, nRow, nRow2 + 1, nCol2))
+					{
+						return true;
+					}
+				}
+			}
+		}
+	}
+	return false;
 }
