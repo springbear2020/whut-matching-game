@@ -236,3 +236,19 @@ bool CGameLogic::IsCorner(void)
 	}
 	return false;
 }
+
+//判断图g中所有的顶点是否为空
+bool CGameLogic::IsBlank(CGraph& g)
+{
+	int nVexnum = g.GetVexnum();
+
+	for (int i = 0; i < nVexnum; i++)
+	{
+		if (g.GetVertex(i) != BLANK)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+

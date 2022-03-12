@@ -25,6 +25,6 @@ public:
 	bool SearchPath(CGraph& g, int nV0, int nV1);   //采用深度优先搜索，判断V1在图g中是否连通
 	bool IsExsit(int nVi);   //判断索引为nVi的顶点是否保存到连通数组m_anPath中
 	bool IsCorner(void);   //判断连接路径数组中，连续三个顶点是否构成一个拐点
-
+	bool IsBlank(CGraph& g);   //判断图g中所有的顶点是否为空
 };
 

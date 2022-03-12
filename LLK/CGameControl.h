@@ -14,5 +14,6 @@ public:
 	void SetFirstPoint(int nRow, int nCol);   //设置第一个点的坐标
 	void SetSecPoint(int nRow, int nCol);	  //设置第二个点的坐标
 	bool Link(Vertex avPath[MAX_VERTEX_NUM], int &nVexnum);   //连接判断函数
+	bool IsWin();   //判断是否胜利
 };
 

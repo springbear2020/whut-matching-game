@@ -23,6 +23,7 @@ public:
 	void AddArc(int nV1Index, int nV2Index);  //添加nV1Index与nV2Index的关系
 	void UpdateVertex(int nIndex, int Info);   //将图顶点数组中索引号为nIndex的顶点的值更新为info 
 	bool GetArc(int nV1Index, int nV2Index);   //获得两个顶点的弧信息
+	void ClearGraph();   //将图中顶点和边还原为初始状态
 };
 
  

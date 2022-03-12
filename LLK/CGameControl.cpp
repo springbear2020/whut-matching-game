@@ -60,3 +60,14 @@ bool CGameControl::Link(Vertex avPath[MAX_VERTEX_NUM], int& nVexnum)
 	}
 	return false;
 }
+
+bool CGameControl::IsWin()
+{
+	CGameLogic logic;
+	if (logic.IsBlank(m_graph) == true)
+	{ 
+		m_graph.ClearGraph();
+		return true;
+	}
+	return false;
+}

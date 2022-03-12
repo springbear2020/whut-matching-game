@@ -66,3 +66,8 @@ void CGraph::UpdateVertex(int nIndex, int nInfo)
 {
 	m_Vertices[nIndex] = nInfo;
 }
+
+void CGraph::ClearGraph()
+{
+	InitGraph();
+}

@@ -27,6 +27,8 @@ protected:
 	CDC m_dcBG;        //背景DC
 
 	bool m_bFirstPoint;   //选中的图片是不是第一次选中，默认为是
+	bool m_bPlaying;   //表示游戏是否正在进行
+	
 	CPoint m_ptGameTop;   //游戏起始坐标
 	CSize m_sizeElem;     //图片元素大小
 	CRect m_rtGameRect;

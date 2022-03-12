@@ -24,6 +24,7 @@ CGameDlg::CGameDlg(CWnd* pParent /*=nullptr*/): CDialogEx(IDD__GAME_DIALOG, pPar
 
 	//初始化图标选中状态
 	m_bFirstPoint = true;
+	m_bPlaying = false;
 
 	//初始化游戏更新区域
 	m_rtGameRect.top = m_ptGameTop.y;
@@ -217,31 +218,15 @@ void CGameDlg::DrawTipLine(Vertex avPath[MAX_VERTEX_NUM], int nVexnum)
 	dc.SelectObject(pOldPen);
 }
 
-
-/*
-//绘制提示线
-void CGameDlg::DrawTipLine(Vertex asvPath[4], int nVexnum)
-{
-	//获取DC
-	CClientDC dc(this);
-	//设置画笔
-	CPen penLine(PS_SOLID, 2, RGB(0, 255, 0));
-	//将画笔选入DC
-	CPen* pOldPen = dc.SelectObject(&penLine);
-
-	//绘制连接线
-	dc.MoveTo(m_ptGameTop.x + asvPath[0].col * m_sizeElem.cx + m_sizeElem.cx / 2,m_ptGameTop.y + asvPath[0].row * m_sizeElem.cy + m_sizeElem.cy / 2);
-	//绘制连接线
-	for (int i = 0; i < nVexnum - 1; i++)
-	{
-		dc.LineTo(m_ptGameTop.x + asvPath[i + 1].col * m_sizeElem.cx + m_sizeElem.cx / 2,m_ptGameTop.y + asvPath[i + 1].row * m_sizeElem.cy + m_sizeElem.cy / 2);
-	}
-	dc.SelectObject(pOldPen);
-}
-*/
 //开始游戏按钮
 void CGameDlg::OnClickedBtnStart()
 {
+	//游戏开始
+	m_bPlaying = true;
+
+	//设置开始游戏按钮状态
+	this->GetDlgItem(IDC_BTN_START)->EnableWindow(false);
+
 	//初始化游戏地图
 	m_GameC.StartGame();
 	//更新界面
@@ -295,6 +280,21 @@ void CGameDlg::OnLButtonUp(UINT nFlags, CPoint point)
 
 		Sleep(200);
 		InvalidateRect(m_rtGameRect, false);
+
+		//判断游戏是否正在进行
+		if (m_bPlaying)
+		{
+			//判断游戏是否胜利
+			if (m_GameC.IsWin())
+			{
+				MessageBox(_T("恭喜您！您赢了！"));
+				m_bPlaying = false;
+				//设置开始游戏按钮可用
+				this->GetDlgItem(IDC_BTN_START)->EnableWindow(true);
+
+				return;
+			}	
+		}
 	}
 	m_bFirstPoint = !m_bFirstPoint;
 }
