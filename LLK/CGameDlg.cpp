@@ -1,18 +1,18 @@
 // CGameDlg.cpp : implementation file
-//
 
 #include "pch.h"
 #include "LLK.h"
 #include "CGameDlg.h"
 #include "afxdialogex.h"
+#include"CGameControl.h"
+#include"CGameLogic.h"
 
 
 // CGameDlg dialog
 
 IMPLEMENT_DYNAMIC(CGameDlg, CDialogEx)
 
-CGameDlg::CGameDlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD__GAME_DIALOG, pParent)
+CGameDlg::CGameDlg(CWnd* pParent /*=nullptr*/): CDialogEx(IDD__GAME_DIALOG, pParent)
 {
 	//初始化起始点坐标
 	m_ptGameTop.x = 50;
@@ -52,8 +52,6 @@ END_MESSAGE_MAP()
 //初始化窗口背景和大小
 void CGameDlg::InitBackground()
 {
-	// TODO: Add your implementation code here.
-	
 	//获得当前对话框的视频内容
 	CClientDC dc(this);
 	
@@ -75,9 +73,8 @@ void CGameDlg::InitBackground()
 	//绘制背景到内存DC中
 	m_dcMem.BitBlt(0, 0, 800, 600, &m_dcBG, 0, 0, SRCCOPY);
 
-	//设置窗口大小
+	//调整窗口大小
 	UpdateWindow();
-
 }
 
 //初始化对话框
@@ -89,8 +86,6 @@ BOOL CGameDlg::OnInitDialog()
 	m_icon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	SetIcon(m_icon, TRUE);    //设置大图标
 	SetIcon(m_icon, FALSE);   //设置小图标
-
-	// TODO:  Add extra initialization here
 
 	//初始化背景
 	InitBackground();
@@ -107,6 +102,7 @@ void CGameDlg::OnPaint()
 	CPaintDC dc(this); // device context for painting
 					   // TODO: Add your message handler code here
 					   // Do not call CDialogEx::OnPaint() for painting messages
+					   // 
 	//将位图内存拷入视频内存
 	dc.BitBlt(0, 0, 800, 600, &m_dcMem, 0, 0, SRCCOPY);
 }
@@ -114,7 +110,6 @@ void CGameDlg::OnPaint()
 //初始化元素
 void CGameDlg::InitElement()
 {
-	// TODO: Add your implementation code here.
 	//获取当前对话框的视频内存
 	CClientDC dc(this);
 
@@ -159,37 +154,27 @@ void CGameDlg::UpdateWindow()
 //更新地图
 void CGameDlg::UpdateMap()
 {
-	// TODO: Add your implementation code here.
-
 	//计算图片的顶点坐标与图片大小
 	int nTop = m_ptGameTop.y;
 	int nLeft = m_ptGameTop.x;
 	int nElemW = m_sizeElem.cx;
 	int nElemH = m_sizeElem.cy;
 
-	m_dcMem.BitBlt(m_rtGameRect.left, m_rtGameRect.top, 
-		           m_rtGameRect.Width(), m_rtGameRect.Height(),
-		  &m_dcBG, m_rtGameRect.left, m_rtGameRect.top, SRCCOPY);
+	m_dcMem.BitBlt(m_rtGameRect.left, m_rtGameRect.top, m_rtGameRect.Width(), m_rtGameRect.Height(),&m_dcBG, m_rtGameRect.left, m_rtGameRect.top, SRCCOPY);
 
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
-
+			int nElemVal = m_GameC.GetElement(i, j);
+			if (nElemVal == BLANK) continue;
+			
 			//将背景与掩码相与，边保留，图像区域为1
-			m_dcMem.BitBlt(nLeft + j * nElemW, nTop + i * nElemH, nElemH, nElemW, &m_dcMask, 0, m_anMap[i][j] * nElemH, SRCPAINT);
+			m_dcMem.BitBlt(nLeft + j * nElemW, nTop + i * nElemH, nElemH, nElemW, &m_dcMask, 0, nElemVal * nElemH, SRCPAINT);
+			
 			//与元素图片相或，边保留，图片区域为元素图片
-			m_dcMem.BitBlt(nLeft + j * nElemW, nTop + i * nElemH, nElemH, nElemW, &m_dcElement, 0, m_anMap[i][j] * nElemH, SRCAND);
+			m_dcMem.BitBlt(nLeft + j * nElemW, nTop + i * nElemH, nElemH, nElemW, &m_dcElement, 0, nElemVal * nElemH, SRCAND);
 		}
 	}
 	Invalidate(false);
-}
-
-//判断是否第一次选中图片
-bool CGameDlg::IsLink(void)
-{
-	if (m_anMap[m_ptSelFirst.y][m_ptSelFirst.x] == m_anMap[m_ptSelSec.y][m_ptSelSec.x]) {
-		return true;
-	}
-	return false;
 }
 
 //绘制提示框
@@ -208,75 +193,73 @@ void CGameDlg::DrawTipFrame(int nRow, int nCol)
 }
 
 //绘制提示线
-void CGameDlg::DrawTipLine()
+void CGameDlg::DrawTipLine(Vertex asvPath[2])
 {
-	// TODO: Add your implementation code here.
-
 	//获取DC
 	CClientDC dc(this);
-
 	//设置画笔
 	CPen penLine(PS_SOLID, 2, RGB(0, 255, 0));
-
 	//将画笔选入DC
 	CPen* pOldPen = dc.SelectObject(&penLine);
 
 	//绘制连接线
-	dc.MoveTo(m_ptGameTop.x + m_ptSelFirst.x * m_sizeElem.cx + m_sizeElem.cx / 2,
-		m_ptGameTop.y + m_ptSelFirst.y * m_sizeElem.cy + m_sizeElem.cy / 2);
-	dc.LineTo(m_ptGameTop.x + m_ptSelSec.x * m_sizeElem.cx + m_sizeElem.cx / 2,
-		m_ptGameTop.y + m_ptSelSec.y * m_sizeElem.cy + m_sizeElem.cy / 2);
+	dc.MoveTo(m_ptGameTop.x + asvPath[0].col * m_sizeElem.cx + m_sizeElem.cx / 2,m_ptGameTop.y + asvPath[0].row * m_sizeElem.cy + m_sizeElem.cy / 2);
+	dc.LineTo(m_ptGameTop.x + asvPath[1].col * m_sizeElem.cx + m_sizeElem.cx / 2,m_ptGameTop.y + asvPath[1].row * m_sizeElem.cy + m_sizeElem.cy / 2);
 
 	dc.SelectObject(pOldPen);
 }
 
-//开始游戏按钮事件监听
+//开始游戏按钮
 void CGameDlg::OnClickedBtnStart()
 {
-	// TODO: Add your control notification handler code here
-	int anMap[4][4] = { 2,0,1,3, 2,2,1,3,2,1,0,0,1,3,0,3 };
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			m_anMap[i][j] = anMap[i][j];
-		}
-	}
+	//初始化游戏地图
+	m_GameC.StartGame();
+	//更新界面
 	UpdateMap();
+	//更新窗口
+	InvalidateRect(m_rtGameRect, false);
 }
 
 //游戏地图事件响应
 void CGameDlg::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	// TODO: Add your message handler code here and/or call default
-
-	if (point.x < m_ptGameTop.x || point.y < m_ptGameTop.y) {
+	//去掉小于0的状态
+	if (point.x < m_ptGameTop.x || point.y < m_ptGameTop.y)
+	{
 		return CDialogEx::OnLButtonUp(nFlags, point);
 	}
 
+	//换算点击的坐标点
 	int nRow = (point.y - m_ptGameTop.y) / m_sizeElem.cy;
 	int nCol = (point.x - m_ptGameTop.x) / m_sizeElem.cx;
 
-	if (nRow > 3 || nCol > 3) {
+	//判断坐标的有效性
+	if (nRow > 3 || nCol > 3)
+	{
 		return CDialogEx::OnLButtonUp(nFlags, point);
 	}
 
-	//如果是第一次选中图片，则绘制矩形框
-	if (m_bFirstPoint) {
+	
+	if (m_bFirstPoint)   //第一个点
+	{
 		DrawTipFrame(nRow, nCol);
-		m_ptSelFirst.x = nCol;
-		m_ptSelFirst.y = nRow;
+		m_GameC.SetFirstPoint(nRow, nCol);
 	}
 	else {
 		DrawTipFrame(nRow, nCol);
-		m_ptSelSec.x = nCol;
-		m_ptSelSec.y = nRow;
+		m_GameC.SetSecPoint(nRow, nCol);
 
-		//判断是否是相同图片
-		if (IsLink()) {
-			DrawTipLine();
-			m_anMap[m_ptSelFirst.y][m_ptSelFirst.x] = -1;
-			m_anMap[m_ptSelSec.y][m_ptSelSec.x] = -1;
+		//获得路径
+		Vertex avPath[2];
+		//连子判断
+		if (m_GameC.Link(avPath))
+		{
+			//画提示线
+			DrawTipLine(avPath);
+			//更新地图
 			UpdateMap();
 		}
+
 		Sleep(200);
 		InvalidateRect(m_rtGameRect, false);
 	}

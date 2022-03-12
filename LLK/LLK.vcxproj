@@ -183,8 +183,11 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CGameControl.h" />
     <ClInclude Include="CGameDlg.h" />
+    <ClInclude Include="CGameLogic.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="global.h" />
     <ClInclude Include="LLK.h" />
     <ClInclude Include="LLKDlg.h" />
     <ClInclude Include="pch.h" />
@@ -192,7 +195,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CGameControl.cpp" />
     <ClCompile Include="CGameDlg.cpp" />
+    <ClCompile Include="CGameLogic.cpp" />
     <ClCompile Include="LLK.cpp" />
     <ClCompile Include="LLKDlg.cpp" />
     <ClCompile Include="pch.cpp">
