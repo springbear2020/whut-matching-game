@@ -15,6 +15,7 @@ public:
 	void SetSecPoint(int nRow, int nCol);	  //设置第二个点的坐标
 	bool Link(Vertex avPath[MAX_VERTEX_NUM], int &nVexnum);   //连接判断函数
 	bool IsWin();   //判断是否胜利
-	bool Help(Vertex avPath[16], int& nVexnum);   //在地图中查找可以消除的一堆照片，返回连接路径和路径上的顶点数
+	bool Help(Vertex avPath[MAX_VERTEX_NUM], int& nVexnum);   //在地图中查找可以消除的一堆照片，返回连接路径和路径上的顶点数
+	void Resert();   //调用函数，对数据成员m_graph中的数据进行重排
 };
 

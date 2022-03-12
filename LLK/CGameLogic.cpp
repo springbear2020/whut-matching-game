@@ -11,15 +11,39 @@ CGameLogic::CGameLogic(void)
 //初始化游戏地图
 void CGameLogic::InitMap(CGraph& g)
 {
-	int anTemp[4][4] = { 2,0,1,3, 2,2,1,3,2,1,0,0,1,3,0,3 };
+	//随机生成地图
+	int anTemp[MAX_VERTEX_NUM];
+
+	//多少花色
+	for (int i = 0; i < MAX_PIC_NUM; i++)
+	{
+		//重复数
+		for (int j = 0; j < REPEAT_NUM; j++)
+		{
+			anTemp[i * REPEAT_NUM + j] = i;
+		}
+	}
+
+	//设置种子
+	srand((int)time(NULL));
+
+	//随机交换任意两个数字
+	for (int i = 0; i < 300; i++)
+	{
+		//随机得到两个坐标
+		int nIndex1 = rand() % MAX_VERTEX_NUM;
+		int nIndex2 = rand() % MAX_VERTEX_NUM;
+
+		//交换两个数值
+		int nTemp = anTemp[nIndex1];
+		anTemp[nIndex1] = anTemp[nIndex2];
+		anTemp[nIndex2] = nTemp;
+	}
 
 	//初始化顶点
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < MAX_VERTEX_NUM; i++)
 	{
-		for (int j = 0; j < 4; j++)
-		{
-			g.AddVertex(anTemp[i][j]);
-		}
+		g.AddVertex(anTemp[i]);
 	}
 
 	//初始化边
@@ -287,4 +311,28 @@ bool CGameLogic::SearchValidPath(CGraph& g)
 		}
 	}
 	return false;
+}
+
+//实现图结构的重排
+void CGameLogic::ResertGraph(CGraph& g)
+{
+	//随机交换顶点数组中的两个顶点的值
+	for (int i = 0; i < 1000; i++)
+	{
+		//随机得到两个坐标
+		int nIndex1 = rand() % MAX_VERTEX_NUM;
+		int nIndex2 = rand() % MAX_VERTEX_NUM;
+
+		//交换两个数值
+		g.ChangeVertex(nIndex1, nIndex2);
+	}
+
+	//更新弧信息
+	for (int i = 0; i < MAX_ROW; i++)
+	{
+		for (int j = 0; j < MAX_COL; j++)
+		{
+			UpdateArc(g, i, j);
+		}
+	}
 }

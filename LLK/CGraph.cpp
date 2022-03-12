@@ -71,3 +71,11 @@ void CGraph::ClearGraph()
 {
 	InitGraph();
 }
+
+//调换两个点的位置
+void CGraph::ChangeVertex(int nIndex1, int nIndex2)
+{
+	int Temp = m_Vertices[nIndex1];
+	m_Vertices[nIndex1] = m_Vertices[nIndex2];
+	m_Vertices[nIndex2] = Temp;
+}

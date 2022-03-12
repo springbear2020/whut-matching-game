@@ -17,8 +17,6 @@ public:
 	enum { IDD = IDD__GAME_DIALOG };
 #endif
 
-
-
 protected:
 	HICON m_icon;
 	CDC m_dcMem;        //内存DC
@@ -31,7 +29,7 @@ protected:
 	
 	CPoint m_ptGameTop;   //游戏起始坐标
 	CSize m_sizeElem;     //图片元素大小
-	CRect m_rtGameRect;
+	CRect m_rtGameRect;   //游戏区域大小
 
 	CGameControl m_GameC;    //游戏控制类
 
@@ -46,7 +44,7 @@ public:
 	void UpdateWindow();            //调整窗口大小
 	void UpdateMap();               //更新游戏地图
 	void DrawTipFrame(int nRow, int nCol);   //绘制提示框
-	void DrawTipLine(Vertex asvPath[4], int nVexnum);             //画提示线
+	void DrawTipLine(Vertex asvPath[MAX_VERTEX_NUM], int nVexnum);             //画提示线
 
 	virtual BOOL OnInitDialog();    //初始化对话框
 
@@ -54,4 +52,5 @@ public:
 	afx_msg void OnClickedBtnStart();      //开始游戏按钮
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);    //游戏地图内鼠标点击事件
 	afx_msg void OnBnClickedBtnNotice();
+	afx_msg void OnBnClickedBtnReset();
 };

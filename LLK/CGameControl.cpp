@@ -11,7 +11,7 @@ void CGameControl::StartGame(void)
 //返回元素信息
 int CGameControl::GetElement(int nRow, int nCol)
 {
-	return m_graph.GetVertex(nRow * 4 + nCol);
+	return m_graph.GetVertex(nRow * MAX_COL + nCol);
 }
 
 //设置第一个点
@@ -39,8 +39,8 @@ bool CGameControl::Link(Vertex avPath[MAX_VERTEX_NUM], int& nVexnum)
 	}
 
 	//判断图片是否相同，如果不同则不能连通
-	int	nInfo1 = m_graph.GetVertex(m_svSelFst.row * 4 + m_svSelFst.col);
-	int	nInfo2 = m_graph.GetVertex(m_svSelSec.row * 4 + m_svSelSec.col);
+	int	nInfo1 = m_graph.GetVertex(m_svSelFst.row * MAX_COL + m_svSelFst.col);
+	int	nInfo2 = m_graph.GetVertex(m_svSelSec.row * MAX_COL + m_svSelSec.col);
 
 	if (nInfo1 != nInfo2 || nInfo1 == BLANK || nInfo2 == BLANK)
 	{
@@ -92,4 +92,12 @@ bool CGameControl::Help(Vertex avPath[MAX_VERTEX_NUM], int& nVexnum)
 	}
 	return false;
 
+}
+
+//实现重排
+void CGameControl::Resert(void)
+{
+	//重排图中顶点
+	CGameLogic logic;
+	logic.ResertGraph(m_graph);
 }

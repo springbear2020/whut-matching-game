@@ -27,6 +27,6 @@ public:
 	bool IsCorner(void);   //判断连接路径数组中，连续三个顶点是否构成一个拐点
 	bool IsBlank(CGraph& g);   //判断图g中所有的顶点是否为空
 	bool SearchValidPath(CGraph& g);   //查找一对可以消除的图片
-
+	void ResertGraph(CGraph& g);   //对图结构g钟的顶点进行重排，并更新顶点的关系
 };
 

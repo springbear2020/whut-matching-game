@@ -15,12 +15,12 @@ IMPLEMENT_DYNAMIC(CGameDlg, CDialogEx)
 CGameDlg::CGameDlg(CWnd* pParent /*=nullptr*/): CDialogEx(IDD__GAME_DIALOG, pParent)
 {
 	//初始化起始点坐标
-	m_ptGameTop.x = 50;
-	m_ptGameTop.y = 50;
+	m_ptGameTop.x = MAP_LEFT;
+	m_ptGameTop.y = MAP_TOP;
 
 	//初始化图片元素大小
-	m_sizeElem.cx = 40;
-	m_sizeElem.cy = 40;
+	m_sizeElem.cx = PIC_WIDTH;
+	m_sizeElem.cy = PIC_HEIGHT;
 
 	//初始化图标选中状态
 	m_bFirstPoint = true;
@@ -47,9 +47,8 @@ BEGIN_MESSAGE_MAP(CGameDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BTN_START, &CGameDlg::OnClickedBtnStart)
 	ON_WM_LBUTTONUP()
 	ON_BN_CLICKED(IDC_BTN_NOTICE, &CGameDlg::OnBnClickedBtnNotice)
+	ON_BN_CLICKED(IDC_BTN_RESET, &CGameDlg::OnBnClickedBtnReset)
 END_MESSAGE_MAP()
-
-// CGameDlg message handlers
 
 //初始化窗口背景和大小
 void CGameDlg::InitBackground()
@@ -250,7 +249,7 @@ void CGameDlg::OnLButtonUp(UINT nFlags, CPoint point)
 	int nCol = (point.x - m_ptGameTop.x) / m_sizeElem.cx;
 
 	//判断坐标的有效性
-	if (nRow > 3 || nCol > 3)
+	if (nRow > MAX_ROW - 1 || nCol > MAX_COL - 1)
 	{
 		return CDialogEx::OnLButtonUp(nFlags, point);
 	}
@@ -330,5 +329,19 @@ void CGameDlg::OnBnClickedBtnNotice()
 		//局部矩形更新
 		InvalidateRect(m_rtGameRect, FALSE);
 	}
+
+}
+
+//重排按钮
+void CGameDlg::OnBnClickedBtnReset()
+{
+	//调用ResertGraph()
+	m_GameC.Resert();
+
+	//更新地图，调用UpdateMap(),更新界面显示
+	UpdateMap();
+
+	//通知界面重绘
+	InvalidateRect(m_rtGameRect, FALSE);   //局部矩形更新
 
 }
