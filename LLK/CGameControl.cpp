@@ -61,15 +61,28 @@ bool CGameControl::Link(Vertex avPath[MAX_VERTEX_NUM], int& nVexnum)
 	return false;
 }
 
-bool CGameControl::IsWin()
+//判断是否获胜
+BOOL CGameControl::IsWin(int nTime)
 {
+	//定义逻辑处理类
 	CGameLogic logic;
-	if (logic.IsBlank(m_graph) == true)
-	{ 
+
+	//判断游戏时间
+	if (nTime <= 0)
+	{
+		//清除图
 		m_graph.ClearGraph();
-		return true;
+		return GAME_LOSE;
 	}
-	return false;
+
+	//判断是否图中所有点为空
+	if (logic.IsBlank(m_graph) == true)
+	{
+		//清除图
+		m_graph.ClearGraph();
+		return GAME_SUCCESS;
+	}
+	return GAME_PLAY;
 }
 
 //在地图中查找可以消除的一堆照片，返回连接路径和路径上的顶点数
