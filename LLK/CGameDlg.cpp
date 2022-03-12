@@ -77,36 +77,6 @@ void CGameDlg::InitBackground()
 	UpdateWindow();
 }
 
-//初始化对话框
-BOOL CGameDlg::OnInitDialog()
-{
-	CDialogEx::OnInitDialog();
-
-	//设置对话框图标
-	m_icon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	SetIcon(m_icon, TRUE);    //设置大图标
-	SetIcon(m_icon, FALSE);   //设置小图标
-
-	//初始化背景
-	InitBackground();
-
-	//初始化元素
-	InitElement();
-
-	return TRUE;  // return TRUE unless you set the focus to a control
-				  // EXCEPTION: OCX Property Pages should return FALSE
-}
-
-void CGameDlg::OnPaint()
-{
-	CPaintDC dc(this); // device context for painting
-					   // TODO: Add your message handler code here
-					   // Do not call CDialogEx::OnPaint() for painting messages
-					   // 
-	//将位图内存拷入视频内存
-	dc.BitBlt(0, 0, 800, 600, &m_dcMem, 0, 0, SRCCOPY);
-}
-
 //初始化元素
 void CGameDlg::InitElement()
 {
@@ -130,6 +100,21 @@ void CGameDlg::InitElement()
 
 	//将位图资源选入DC
 	m_dcMask.SelectObject(hMask);
+}
+
+//绘制提示框
+void CGameDlg::DrawTipFrame(int nRow, int nCol)
+{
+	CClientDC dc(this);
+	CBrush brush(RGB(233, 43, 43));
+	CRect rtTipFrame;
+
+	rtTipFrame.left = m_ptGameTop.x + nCol * m_sizeElem.cx;
+	rtTipFrame.top = m_ptGameTop.y + nRow * m_sizeElem.cy;
+	rtTipFrame.right = rtTipFrame.left + m_sizeElem.cx;
+	rtTipFrame.bottom = rtTipFrame.top + m_sizeElem.cy;
+
+	dc.FrameRect(rtTipFrame, &brush);
 }
 
 //调整窗口大小
@@ -160,36 +145,21 @@ void CGameDlg::UpdateMap()
 	int nElemW = m_sizeElem.cx;
 	int nElemH = m_sizeElem.cy;
 
-	m_dcMem.BitBlt(m_rtGameRect.left, m_rtGameRect.top, m_rtGameRect.Width(), m_rtGameRect.Height(),&m_dcBG, m_rtGameRect.left, m_rtGameRect.top, SRCCOPY);
+	m_dcMem.BitBlt(m_rtGameRect.left, m_rtGameRect.top, m_rtGameRect.Width(), m_rtGameRect.Height(), &m_dcBG, m_rtGameRect.left, m_rtGameRect.top, SRCCOPY);
 
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
 			int nElemVal = m_GameC.GetElement(i, j);
 			if (nElemVal == BLANK) continue;
-			
+
 			//将背景与掩码相与，边保留，图像区域为1
 			m_dcMem.BitBlt(nLeft + j * nElemW, nTop + i * nElemH, nElemH, nElemW, &m_dcMask, 0, nElemVal * nElemH, SRCPAINT);
-			
+
 			//与元素图片相或，边保留，图片区域为元素图片
 			m_dcMem.BitBlt(nLeft + j * nElemW, nTop + i * nElemH, nElemH, nElemW, &m_dcElement, 0, nElemVal * nElemH, SRCAND);
 		}
 	}
 	Invalidate(false);
-}
-
-//绘制提示框
-void CGameDlg::DrawTipFrame(int nRow, int nCol)
-{
-	CClientDC dc(this);
-	CBrush brush(RGB(233, 43, 43));
-	CRect rtTipFrame;
-
-	rtTipFrame.left = m_ptGameTop.x + nCol * m_sizeElem.cx;
-	rtTipFrame.top = m_ptGameTop.y + nRow * m_sizeElem.cy;
-	rtTipFrame.right = rtTipFrame.left + m_sizeElem.cx;
-	rtTipFrame.bottom = rtTipFrame.top + m_sizeElem.cy;
-
-	dc.FrameRect(rtTipFrame, &brush);
 }
 
 //绘制提示线
@@ -203,13 +173,43 @@ void CGameDlg::DrawTipLine(Vertex asvPath[4], int nVexnum)
 	CPen* pOldPen = dc.SelectObject(&penLine);
 
 	//绘制连接线
-	dc.MoveTo(m_ptGameTop.x + asvPath[0].col * m_sizeElem.cx + m_sizeElem.cx / 2,m_ptGameTop.y + asvPath[0].row * m_sizeElem.cy + m_sizeElem.cy / 2);
+	dc.MoveTo(m_ptGameTop.x + asvPath[0].col * m_sizeElem.cx + m_sizeElem.cx / 2, m_ptGameTop.y + asvPath[0].row * m_sizeElem.cy + m_sizeElem.cy / 2);
 	//绘制连接线
 	for (int i = 0; i < nVexnum - 1; i++)
 	{
-		dc.LineTo(m_ptGameTop.x + asvPath[i + 1].col * m_sizeElem.cx + m_sizeElem.cx / 2,m_ptGameTop.y + asvPath[i + 1].row * m_sizeElem.cy + m_sizeElem.cy / 2);
+		dc.LineTo(m_ptGameTop.x + asvPath[i + 1].col * m_sizeElem.cx + m_sizeElem.cx / 2, m_ptGameTop.y + asvPath[i + 1].row * m_sizeElem.cy + m_sizeElem.cy / 2);
 	}
 	dc.SelectObject(pOldPen);
+}
+
+//初始化对话框
+BOOL CGameDlg::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	//设置对话框图标
+	m_icon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	SetIcon(m_icon, TRUE);    //设置大图标
+	SetIcon(m_icon, FALSE);   //设置小图标
+
+	//初始化背景
+	InitBackground();
+
+	//初始化元素
+	InitElement();
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+				  // EXCEPTION: OCX Property Pages should return FALSE
+}
+
+void CGameDlg::OnPaint()
+{
+	CPaintDC dc(this); // device context for painting
+					   // TODO: Add your message handler code here
+					   // Do not call CDialogEx::OnPaint() for painting messages
+					   // 
+	//将位图内存拷入视频内存
+	dc.BitBlt(0, 0, 800, 600, &m_dcMem, 0, 0, SRCCOPY);
 }
 
 //开始游戏按钮

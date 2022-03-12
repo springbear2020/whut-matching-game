@@ -11,6 +11,9 @@ public:
 	void Clear(CGraph& g, Vertex v1, Vertex v2);   //当V1与v2连通时，将其顶点的值设为空
 	bool IsLink(CGraph& g, Vertex v1, Vertex v2);  //判断顶点v1与v2是否连通
 	int GetVexPath(Vertex avPath[4]);   //通过参数返回路径
+	void PushVertex(Vertex v);
+	void PopVertex();
+
 protected:
 	Vertex m_avPath[4];   //保存在进行连接判断时所经过的顶点
 	int m_nVexNum;   //顶点数

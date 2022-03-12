@@ -31,16 +31,40 @@ void CGameLogic::InitMap(CGraph &g)
 	}
 }
 
+//消子
+void CGameLogic::Clear(CGraph& g, Vertex v1, Vertex v2)
+{
+	//获得顶点索引号
+	int nV1Index = v1.row * 4 + v1.col;
+	int nV2Index = v2.row * 4 + v2.col;
+	//更新顶点
+	g.UpdateVertex(nV1Index, BLANK);
+	g.UpdateVertex(nV2Index, BLANK);
+	//更新边
+	UpdateArc(g, v1.row, v1.col);
+	UpdateArc(g, v2.row, v2.col);
+
+}
+
 //判断是否连线
 bool CGameLogic::IsLink(CGraph& g, Vertex v1, Vertex v2)
 {
+	//获得顶点的索引号
+	int nV1Index = v1.row * 4 + v1.col;
+	int nV2Index = v2.row * 4 + v2.col;
+
+	//压入第一个点
+	PushVertex(v1);
+
+	//判断两顶点是否相邻且连通
+	if (g.GetArc(nV1Index, nV2Index) == true)
+	{
+		PushVertex(v2);
+		return true;
+	}
+
+	PopVertex();
 	return false;
-}
-
-//消子
-void CGameLogic::Clear(CGraph &g, Vertex v1, Vertex v2)
-{
-
 }
 
 int CGameLogic::GetVexPath(Vertex avPath[4])
@@ -120,4 +144,15 @@ void CGameLogic::UpdateArc(CGraph& g, int nRow, int nCol)
 			g.AddArc(nV1Index, nV2Index);
 		}
 	}
+}
+
+void CGameLogic::PushVertex(Vertex v)
+{
+	m_avPath[m_nVexNum] = v;
+	m_nVexNum++;
+}
+
+void CGameLogic::PopVertex()
+{
+	m_nVexNum--;
 }

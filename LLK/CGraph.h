@@ -20,8 +20,10 @@ protected:
 public:
 	int AddVertex(int nInfo);   //将顶点info加入到顶点数组中
 	int GetVertex(int ninfo);   //获取顶i的那数组中索引为nIndex的顶点
-	int GetVexnum(void);   //获取顶点数组中的顶点数
 	void AddArc(int nV1Index, int nV2Index);  //添加nV1Index与nV2Index的关系
+	void UpdateVertex(int nIndex, int Info);   //将图顶点数组中索引号为nIndex的顶点的值更新为info 
+	bool GetArc(int nV1Index, int nV2Index);   //获得两个顶点的弧信息
+	int GetVexnum(void);   //获取顶点数组中的顶点数
 };
 
  

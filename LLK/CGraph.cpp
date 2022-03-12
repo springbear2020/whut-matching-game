@@ -39,6 +39,12 @@ int CGraph::AddVertex(int nInfo)
 	return m_nVexnum;
 }
 
+//根据索引，从顶点数组中取出相应的顶点
+int CGraph::GetVertex(int nIndex)
+{
+	return m_Vertices[nIndex];
+}
+
 //添加两个索引顶点的边
 void CGraph::AddArc(int nV1Index, int nV2Index)
 {
@@ -46,8 +52,17 @@ void CGraph::AddArc(int nV1Index, int nV2Index)
 	m_AdjMatrix[nV2Index][nV1Index] = true;
 }
 
-//根据索引，从顶点数组中取出相应的顶点
-int CGraph::GetVertex(int nIndex)
+bool CGraph::GetArc(int nV1Index, int nV2Index)
 {
-	return m_Vertices[nIndex];
+	return m_AdjMatrix[nV1Index][nV2Index];
+}
+
+void CGraph::UpdateVertex(int nIndex, int info)
+{
+	m_Vertices[nIndex] = info;
+}
+
+int CGraph::GetVexnum(void)
+{
+	return m_nVexnum;
 }
