@@ -24,8 +24,6 @@ protected:
 	CDC m_dcMask;      //掩码内存DC
 	CDC m_dcBG;        //背景DC
 	CDC m_dcCache;     //缓存的内存DC
-//	CDC m_dcPause;     //暂停图片的内存DC
-
 
 	CPoint m_ptGameTop;   //游戏起始坐标
 	CSize m_sizeElem;     //图片元素大小
@@ -52,15 +50,15 @@ public:
 	void DrawTipLine(Vertex asvPath[MAX_VERTEX_NUM], int nVexnum);             //画提示线
 	void JudgeWin(void);   //判断胜负
 	
+	CProgressCtrl m_GameProgress;
 	virtual BOOL OnInitDialog();    //初始化对话框
 	afx_msg void OnPaint();
 	afx_msg void OnClickedBtnStart();      //开始游戏按钮
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);    //游戏地图内鼠标点击事件
 	afx_msg void OnBnClickedBtnNotice();
 	afx_msg void OnBnClickedBtnReset();
-	CProgressCtrl m_GameProgress;
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnBnClickedBtnPause();
 	afx_msg void OnChangeEditTime();
-	afx_msg void OnBnClickedButtonHelp();
+	afx_msg void OnBnClickedBtnHelp();
 };

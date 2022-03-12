@@ -28,7 +28,6 @@ void CGameControl::SetSecPoint(int nRow, int nCol)
 	m_svSelSec.col = nCol;
 }
 
-
 //Ïû×ÓÅÐ¶Ï
 bool CGameControl::Link(Vertex avPath[MAX_VERTEX_NUM], int& nVexnum)
 {

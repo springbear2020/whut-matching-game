@@ -8,6 +8,7 @@
 #include "LLKDlg.h"
 #include "afxdialogex.h"
 #include"CGameDlg.h"
+#include"CVersionDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -67,6 +68,7 @@ BEGIN_MESSAGE_MAP(CLLKDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BTN_BASIC, &CLLKDlg::OnClickedBtnBasic)
+	ON_BN_CLICKED(IDC_BTN_HELP, &CLLKDlg::OnBnClickedBtnHelp)
 END_MESSAGE_MAP()
 
 
@@ -186,4 +188,12 @@ void CLLKDlg::OnClickedBtnBasic()
 	dlg.DoModal();
 
 	this->ShowWindow(SW_SHOW);
+}
+
+
+void CLLKDlg::OnBnClickedBtnHelp()
+{
+	// TODO: Add your control notification handler code here
+	CVersionDlg cvd;
+	cvd.DoModal();
 }

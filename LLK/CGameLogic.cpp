@@ -75,7 +75,6 @@ bool CGameLogic::IsLink(CGraph& graph, Vertex v1, Vertex v2)
 	return false;
 }
 
-
 //添加一个路径顶点
 void CGameLogic::PushVertex(int nV)
 {

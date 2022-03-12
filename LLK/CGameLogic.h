@@ -14,7 +14,6 @@ protected:
 	int m_nCorner;   //连接路径数组m_anPath中的拐点数
 
 public:
-
 	void InitMap(CGraph& g);
 	void UpdateArc(CGraph& g, int nRow, int nCol);   //判断游戏地图中nRow行，nCol列的顶点与它上下左右的顶点是否有边，如果有边，则更新图结构，并返回
 	bool IsLink(CGraph& g, Vertex v1, Vertex v2);  //判断顶点v1与v2是否连通

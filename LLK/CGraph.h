@@ -26,7 +26,6 @@ public:
 	int GetVexnum(void);   //获取顶点数组中的顶点数
 	void ClearGraph();   //将图中顶点和边还原为初始状态
 	void ChangeVertex(int nIndex1, int nIndex2);   //调换两个点的位置
-
 };
 
  

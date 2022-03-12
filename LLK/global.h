@@ -7,14 +7,6 @@ typedef struct tagVertex
 	int info;    //信息类
 }Vertex;
 
-typedef struct tagFlag {
-	bool bTime;//计时进度条
-	bool bProp;//道具
-	bool bScore;//积分
-	CString szTitle;//对话框标题文字
-}FLAG;
-
-
 #define BLANK				-1
 #define MAX_ROW				10	  //初始行数
 #define MAX_COL				12	  //初始列数

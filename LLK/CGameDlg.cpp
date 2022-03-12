@@ -8,6 +8,7 @@
 #include"CGameLogic.h"
 
 
+
 // CGameDlg dialog
 
 IMPLEMENT_DYNAMIC(CGameDlg, CDialogEx)
@@ -51,6 +52,7 @@ BEGIN_MESSAGE_MAP(CGameDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BTN_RESET, &CGameDlg::OnBnClickedBtnReset)
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDC_BTN_PAUSE, &CGameDlg::OnBnClickedBtnPause)
+	ON_BN_CLICKED(IDC_BTN_HELP, &CGameDlg::OnBnClickedBtnHelp)
 END_MESSAGE_MAP()
 
 //初始化窗口背景和大小
@@ -58,7 +60,6 @@ void CGameDlg::InitBackground()
 {	
 	//加载BMP文件资源
 	HANDLE hBmpBG = ::LoadImage(NULL, _T("theme\\picture\\fruit_bg.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-
 	//获得当前对话框的视频内容
 	CClientDC dc(this);
 
@@ -374,12 +375,9 @@ void CGameDlg::OnBnClickedBtnReset()
 
 }
 
-
+//计时器
 void CGameDlg::OnTimer(UINT_PTR nIDEvent)
 {
-	//刷新进度条位置
-	m_GameProgress.StepIt();
-	
 	//设置进度条位置之前，需要判断计时器编号是否为当前计时器
 	if (nIDEvent == PLAY_TIMER_ID && m_bPlaying && m_bPause == false)
 	{
@@ -392,6 +390,9 @@ void CGameDlg::OnTimer(UINT_PTR nIDEvent)
 			SetDlgItemText(IDC_EDIT_TIME, str);
 
 			UpdateData(false);
+
+			//刷新进度条位置
+			m_GameProgress.StepIt();
 		}
 	 }
 
@@ -483,4 +484,11 @@ void CGameDlg::OnChangeEditTime()
 	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
 
 	// TODO:  在此添加控件通知处理程序代码
+}
+
+//帮助按钮
+void CGameDlg::OnBnClickedBtnHelp()
+{
+	// TODO: Add your control notification handler code here
+
 }

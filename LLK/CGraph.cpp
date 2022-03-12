@@ -52,21 +52,25 @@ int CGraph::GetVertex(int nIndex)
 	return m_Vertices[nIndex];
 }
 
+//获得两个顶点的弧信息
 bool CGraph::GetArc(int nV1Index, int nV2Index)
 {
 	return m_AdjMatrix[nV1Index][nV2Index];
 }
 
+//获取顶点数组中的顶点数
 int CGraph::GetVexnum(void)
 {
 	return m_nVexnum;
 }
 
+//将图顶点数组中索引号为nIndex的顶点的值更新为info 
 void CGraph::UpdateVertex(int nIndex, int nInfo)
 {
 	m_Vertices[nIndex] = nInfo;
 }
 
+//将图中顶点和边还原为初始状态
 void CGraph::ClearGraph()
 {
 	InitGraph();
