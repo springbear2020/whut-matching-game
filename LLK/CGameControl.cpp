@@ -5,13 +5,13 @@
 void CGameControl::StartGame(void)
 {
 	CGameLogic gameLogic;
-	gameLogic.InitMap(m_anMap);
+	gameLogic.InitMap(m_graph);
 }
 
 //返回元素信息
 int CGameControl::GetElement(int nRow, int nCol)
 {
-	return m_anMap[nRow][nCol];
+	return 0;
 }
 
 //设置第一个点
@@ -38,17 +38,17 @@ bool CGameControl::Link(Vertex avPath[4], int& nVexnum)
 	}
 
 	//判断两次选择的图片是否相同图片
-	if (m_anMap[m_svSelFst.row][m_svSelFst.col] != m_anMap[m_svSelSec.row][m_svSelSec.col])
-	{
-		return false;
-	}
+//	if (m_graph[nVexnum][m_nArcnum] != m_graph[m_svSelSec.row][m_svSelSec.col])
+//	{
+//		return false;
+//	}
 
 	//判断是否连通
 	CGameLogic logic;
-	if (logic.IsLink(m_anMap, m_svSelFst, m_svSelSec))
+	if (logic.IsLink(m_graph, m_svSelFst, m_svSelSec))
 	{
 		//消子
-		logic.Clear(m_anMap, m_svSelFst, m_svSelSec);
+		logic.Clear(m_graph, m_svSelFst, m_svSelSec);
 
 		//返回路径顶点
 		nVexnum = logic.GetVexPath(avPath);

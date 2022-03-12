@@ -8,21 +8,15 @@ CGameLogic::CGameLogic(void)
 }
 
 //初始化游戏地图
-void CGameLogic::InitMap(int anMap[][4])
+void CGameLogic::InitMap(CGraph &g)
 {
 	int anTemp[4][4] = { 2,0,1,3, 2,2,1,3,2,1,0,0,1,3,0,3 };
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 4; j++)
-		{
-			anMap[i][j] = anTemp[i][j];
-		}
-	}
 }
 
 //判断是否连线
-bool CGameLogic::IsLink(int anMap[][4], Vertex v1, Vertex v2)
+bool CGameLogic::IsLink(CGraph& g, Vertex v1, Vertex v2)
 {
+/*
 	int nCol1 = v1.col;
 	int nCol2 = v2.col;
 	int nRow1 = v1.row;
@@ -65,18 +59,17 @@ bool CGameLogic::IsLink(int anMap[][4], Vertex v1, Vertex v2)
 	}
 
 	DeleteVertex();
-
+*/
 	return false;
 }
 
 //消子
-void CGameLogic::Clear(int anMap[][4], Vertex v1, Vertex v2)
+void CGameLogic::Clear(CGraph &g, Vertex v1, Vertex v2)
 {
-	anMap[v1.row][v1.col] = BLANK;
-	anMap[v2.row][v2.col] = BLANK;
+
 }
 
-
+/*
 //行号相同，判断横向是否连通
 bool CGameLogic::LinkInRow(int anMap[][4], Vertex v1, Vertex v2)
 {
@@ -577,6 +570,7 @@ bool CGameLogic::TwoCornerLink(int anMap[][4], Vertex v1, Vertex v2)
 	}
 	return false;
 }
+*/
 
 int CGameLogic::GetVexPath(Vertex avPath[4])
 {

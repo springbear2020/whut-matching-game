@@ -1,10 +1,11 @@
 #pragma once
 #include"global.h"
 #include"CGameLogic.h"
+#include"CGraph.h"
 class CGameControl
 {
 public:
-	int m_anMap[4][4];   //游戏地图
+	CGraph m_graph;   //游戏地图
 	//x->col,y->row
 	Vertex m_svSelFst;   //第一次选中的点(x表示列)
 	Vertex m_svSelSec;

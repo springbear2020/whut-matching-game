@@ -186,6 +186,7 @@
     <ClInclude Include="CGameControl.h" />
     <ClInclude Include="CGameDlg.h" />
     <ClInclude Include="CGameLogic.h" />
+    <ClInclude Include="CGraph.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="LLK.h" />
@@ -198,6 +199,7 @@
     <ClCompile Include="CGameControl.cpp" />
     <ClCompile Include="CGameDlg.cpp" />
     <ClCompile Include="CGameLogic.cpp" />
+    <ClCompile Include="CGraph.cpp" />
     <ClCompile Include="LLK.cpp" />
     <ClCompile Include="LLKDlg.cpp" />
     <ClCompile Include="pch.cpp">

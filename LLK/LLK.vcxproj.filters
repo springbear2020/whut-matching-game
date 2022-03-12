@@ -45,6 +45,9 @@
     <ClInclude Include="CGameControl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LLK.cpp">
@@ -63,6 +66,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CGameControl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CGraph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
