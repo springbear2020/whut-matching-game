@@ -128,7 +128,7 @@ void CHelpDialog::InitHelpPicture()
 	HANDLE helpBmp;
 
 	//加载图片资源
-	helpBmp = ::LoadImage(NULL, _T("theme\\picture\\basic_help.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	helpBmp = ::LoadImage(NULL, _T("res\\basic_help.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
 	//获取当前设备环境
 	CClientDC dc(this);

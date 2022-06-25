@@ -8,7 +8,7 @@
 //≤•∑≈“Ù¿÷
 void BackgroundMusic::playBackgroundMusic()
 {
-	PlaySound(_T("source\\music\\TimeSpace.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+	PlaySound(_T("res\\TimeSpace.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 }
 
 //Õ£÷π“Ù¿÷≤•∑≈

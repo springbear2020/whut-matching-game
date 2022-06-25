@@ -63,7 +63,7 @@ END_MESSAGE_MAP()
 void CGameDlg::InitBackground()
 {	
 	//加载BMP文件资源
-	HANDLE hBmpBG = ::LoadImage(NULL, _T("theme\\picture\\fruit_bg.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	HANDLE hBmpBG = ::LoadImage(NULL, _T("res\\fruit_bg.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 	//获得当前对话框的视频内容
 	CClientDC dc(this);
 
@@ -127,7 +127,7 @@ void CGameDlg::InitElement()
 	CClientDC dc(this);
 
 	//加载BMP图片资源
-	HANDLE hBmpBG = ::LoadImage(NULL, _T("theme\\picture\\fruit_element.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	HANDLE hBmpBG = ::LoadImage(NULL, _T("res\\fruit_element.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
 	//创建与视频内存兼容的内存DC
 	m_dcElement.CreateCompatibleDC(&dc);
@@ -136,7 +136,7 @@ void CGameDlg::InitElement()
 	m_dcElement.SelectObject(hBmpBG);
 
 	//加载BMP图片资源
-	HANDLE hMask = ::LoadImage(NULL, _T("theme\\picture\\fruit_mask.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	HANDLE hMask = ::LoadImage(NULL, _T("res\\fruit_mask.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
 	//创建与视频内存兼容的内存DC
 	m_dcMask.CreateCompatibleDC(&dc);
@@ -145,7 +145,7 @@ void CGameDlg::InitElement()
 	m_dcMask.SelectObject(hMask);
 
 	//加载游戏暂停BMP图片资源
-	HANDLE hCache = ::LoadImage(NULL, _T("theme\\picture\\fruit_pause.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+	HANDLE hCache = ::LoadImage(NULL, _T("res\\fruit_pause.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 
 	//创建与视频内存兼容的内存DC
 	m_dcCache.CreateCompatibleDC(&dc);

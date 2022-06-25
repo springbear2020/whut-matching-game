@@ -228,6 +228,9 @@
     <Image Include="res\LLK.ico" />
     <Image Include="res\llk_main.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="source\music\TimeSpace.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
