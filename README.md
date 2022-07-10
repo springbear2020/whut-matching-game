@@ -2,16 +2,18 @@
 >
 > 方案一：
 >
-> 1. 使用 Visual Studio 2019 或其它版本打开 `LLK.sln` 文件
-> 2. 在 Visual Studio 中使用快捷键 `Ctrl + F5` 即可运行
+> 1. 克隆仓库：使用 Git 克隆仓库或直接下载仓库压缩包到您的计算机
+> 2. 打开工程：使用 `Visual Studio 2019` 或其它版本打开 `LLK.sln` 文件
+> 3. 运行项目：在 Visual Studio 中使用快捷键 `Ctrl + F5` 即可运行
 >
 > 方案二：
 >
-> 1. 直接解压 `RELEASE` 目录下的 `欢乐连连看.zip` 文件并点击解压目录中的 `欢乐连连看.exe` 文件即可运行
+> 1. 克隆仓库：使用 Git 克隆仓库或直接下载仓库压缩包到您的计算机
+> 1. 解压运行：解压 `RELEASE` 目录下的 `欢乐连连看.zip` 文件并点击解压目录中的 `欢乐连连看.exe` 文件即可运行
 
 # 一、游戏介绍
 
-​		“连连看游戏” 是在一堆图案中的相同的图案进行配对的简单游戏，在一定的规则之内对相同的图案进行消除处理，在规定时间内消除所有图案后玩家就获胜。“连连看游戏”只要将相同的两张元素用三根以内的直线连在一起就可以消除，规则简单容易上手，游戏速度节奏快，画面清晰可爱。
+“连连看游戏” 是在一堆图案中的相同的图案进行配对的简单游戏，在一定的规则之内对相同的图案进行消除处理，在规定时间内消除所有图案后玩家就获胜。“连连看游戏”只要将相同的两张元素用三根以内的直线连在一起就可以消除，规则简单容易上手，游戏速度节奏快，画面清晰可爱。
 
 # 二、游戏规则
 1. 一条直线消子：选择的两张图片花色相同，并且处于同一条水平线或者同一条垂直线上，并且两张图片之间没有其余的图片，则可以进行一条直线消子。
@@ -31,37 +33,38 @@ typedef struct tagVertex{
 }Vertex;
 ```
 2. 游戏地图存储结构：使用二维数组来保存连连看游戏地图，给每种图片一个编号，并将这些编号保存在二
-维数组中。用户在屏幕上选择 2 张图片，对应为数组中的两组坐标。分别实现三个消子判断算法：“一条直线消子”、“两条直线消子”、“三条直线消子”，并使用这三个算法进行消子判断。若符合消子规则，就在屏幕上消除一对图片，并把数组对应元素清空。
-> 2.1 游戏地图中的图片种类和重复次数与游戏的级别和难度有关。图片种类越多，重复次数越小，游戏的难度越大，反之则越容易。
-> 2.2 因为 2 张同类的图片才能消。为保证游戏能完全消完，每种图片重复的次数一定要是偶数，即 2 的倍数。
-> 2.3 地图的大小与图片元素种类之间的关系：地图的行数 * 地图的列数 = 图片的种类数 * 每种图片重复的次数
-> 2.4 地图数据的存储：用 int 类型动态二维数组(int** m_pGameMap)存储地图中元素图片的编号；获得某行某列对应的元素数值
+    维数组中。用户在屏幕上选择 2 张图片，对应为数组中的两组坐标。分别实现三个消子判断算法：“一条直线消子”、“两条直线消子”、“三条直线消子”，并使用这三个算法进行消子判断。若符合消子规则，就在屏幕上消除一对图片，并把数组对应元素清空。
+    
+    > 1. 游戏地图中的图片种类和重复次数与游戏的级别和难度有关。图片种类越多，重复次数越小，游戏的难度越大，反之则越容易
+    > 2. 因为 2 张同类的图片才能消。为保证游戏能完全消完，每种图片重复的次数一定要是偶数，即 2 的倍数
+    > 3. 地图的大小与图片元素种类之间的关系：地图的行数 * 地图的列数 = 图片的种类数 * 每种图片重复的次数
+    > 4. 地图数据的存储：用 int 类型动态二维数组(int** m_pGameMap)存储地图中元素图片的编号；获得某行某列对应的元素数值
 
 # 五、功能演示
-1. 欢迎界面
+## 1. 欢迎界面
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210503214758966.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTAwODg2Ng==,size_16,color_FFFFFF,t_70#pic_center)
 
-2. 游戏界面
+## 2. 游戏界面
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210503214804405.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTAwODg2Ng==,size_16,color_FFFFFF,t_70#pic_center)
 
-3. 暂停界面
+## 3. 暂停界面
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210503214809305.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTAwODg2Ng==,size_16,color_FFFFFF,t_70#pic_center)
 
-4. 提示界面
+## 4. 提示界面
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210503214814589.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTAwODg2Ng==,size_16,color_FFFFFF,t_70#pic_center)
 
-5. 背景音乐
+## 5. 背景音乐
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210503214822638.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTAwODg2Ng==,size_16,color_FFFFFF,t_70#pic_center)
 
-6. 帮助信息
+## 6. 帮助信息
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210503214830582.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTAwODg2Ng==,size_16,color_FFFFFF,t_70#pic_center)
 
-7. 版权信息
+## 7. 版权信息
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210503214835679.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MTAwODg2Ng==,size_16,color_FFFFFF,t_70#pic_center)
