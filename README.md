@@ -13,7 +13,7 @@
 
 注意事项：安装 VisualStudio2019 软件时需要勾选 MFC 框架，如下图所示
 
-![](document/img/MFC 安装.png)
+![](document/img/MFC.png)
 
 # 二、项目介绍
 
