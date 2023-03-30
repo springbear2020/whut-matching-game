@@ -8,11 +8,11 @@
 
 # 一、快速开始
 
-1. 克隆仓库：使用 Git 克隆仓库或直接下载仓库压缩包到您的计算机
-2. 打开工程：使用 VisualStudio2019 打开工程解决方案文件 matching-game.sln
-3. 运行项目：在 VisualStudio2019 中使用快捷键 Ctrl+F5 即可运行
+1. 克隆仓库：使用 Git 克隆仓库或直接下载仓库压缩包到您的计算机。
+2. 打开工程：使用 VisualStudio2019 打开工程解决方案文件 matching-game.sln。
+3. 运行项目：在 VisualStudio2019 中使用快捷键 Ctrl+F5 即可运行。
 
-注意事项：安装 VisualStudio2019 软件时需要勾选 MFC 框架，如下图所示
+**注意事项：** 安装 VisualStudio2019 软件时需要勾选 MFC 框架，如下图所示。
 
 ![](document/img/MFC.png)
 
@@ -42,8 +42,8 @@ whut-maching-game -- 工程文件
 	|—— targetver			-- Including SDKDDKVer.h defines the highest available Windows platform
 	|—— resources 			-- 资源目录：图片、音乐等
 |—— document -- 资源文件
-	|—— img -- 系统效果展示图片
-	|—— pdf -- 项目开发指导文件
+	|—— img 	-- 系统效果展示图片
+	|—— pdf 	-- 项目开发指导文件
 |—— matching-game.sln -- 工程解决方案
 ```
 
