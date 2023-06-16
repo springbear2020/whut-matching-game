@@ -29,21 +29,21 @@ whut-maching-game	-- 工程文件
 	|—— CGameControl 		-- 游戏控制：开始游戏、消子判断、获胜判断、游戏重排等
 	|—— CGameDlg 			-- 游戏界面对话框
 	|—— CGameLogic 			-- 核心业务逻辑：初始化地图、连接判断、路径搜索、图结构重排等
-	|—— CGraph				-- 游戏地图：图结构、顶点、边等
+	|—— CGraph			-- 游戏地图：图结构、顶点、边等
 	|—— CHelpDialog			-- 游戏帮助对话框
 	|—— CSettingDialog		-- 游戏设置对话框
 	|—— CVersionDlg			-- 游戏版本对话框
 	|—— framework			-- MFC 核心头文件
-	|—— global				-- 全局常量
-	|—— LLK					-- 程序入口
-	|—— LLKDlg				-- 主界面对话框
-	|—— pch					-- 源码预编译支持头文件
+	|—— global			-- 全局常量
+	|—— LLK				-- 程序入口
+	|—— LLKDlg			-- 主界面对话框
+	|—— pch				-- 源码预编译支持头文件
 	|—— resource			-- Microsoft Visual C++ generated include file. Used by LLK.rc
 	|—— targetver			-- Including SDKDDKVer.h defines the highest available Windows platform
 	|—— resources			-- 资源目录：图片、音乐等
-|—— document	-- 资源文件
-	|—— img					-- 系统效果展示图片
-	|—— pdf					-- 项目开发指导文件
+|—— document		-- 资源文件
+	|—— img				-- 系统效果展示图片
+	|—— pdf				-- 项目开发指导文件
 |—— matching-game.sln	-- 工程解决方案
 ```
 
