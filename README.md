@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://img.shields.io/static/v1?label=%E5%BC%80%E5%8F%91%E6%97%B6%E9%97%B4&message=21/04-21/06&color=007bff"/>
+    <img src="https://img.shields.io/static/v1?label=%E5%BC%80%E5%8F%91%E6%97%B6%E9%97%B4&message=21/04/26 - 21/06/27&color=007bff"/>
     <img src="https://img.shields.io/static/v1?label=%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83&message=VisualStudio2019&color=ffc107"/>
     <a href="https://github.com/springbear2020/whut-matching-game" target="_blank">
     	<img src="https://img.shields.io/static/v1?label=%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE&message=whut-matching-game&color=28a745"/>
