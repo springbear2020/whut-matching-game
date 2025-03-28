@@ -197,7 +197,7 @@ bool CGameLogic::SearchPath(CGraph &graph, int nV0, int nV1)
 	// 遍历图中nV0行，从0列到nVexnum列，值为true的点
 	for (int nVi = 0; nVi < nVexnum; nVi++)
 	{
-		if (graph.GetArc(nV0, nVi) && !IsExsit(nVi))
+		if (graph.GetArc(nV0, nVi) && !IsExist(nVi))
 		{
 			// 压入当前顶点，假设为路径的一个有效顶点
 			PushVertex(nVi);
@@ -235,7 +235,7 @@ bool CGameLogic::SearchPath(CGraph &graph, int nV0, int nV1)
 }
 
 // 判断顶点是否已在路径中存在
-bool CGameLogic::IsExsit(int nVi)
+bool CGameLogic::IsExist(int nVi)
 {
 	for (int i = 0; i < m_nVexNum; i++)
 	{

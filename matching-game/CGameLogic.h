@@ -19,7 +19,7 @@ public:
 	bool IsLink(CGraph &g, Vertex v1, Vertex v2);  // 判断顶点v1与v2是否连通
 	void Clear(CGraph &g, Vertex v1, Vertex v2);   // 当V1与v2连通时，将其顶点的值设为空
 	bool SearchPath(CGraph &g, int nV0, int nV1);  // 采用深度优先搜索，判断V1在图g中是否连通
-	bool IsExsit(int nVi);						   // 判断索引为nVi的顶点是否保存到连通数组m_anPath中
+	bool IsExist(int nVi);						   // 判断索引为nVi的顶点是否保存到连通数组m_anPath中
 	bool IsCorner(void);						   // 判断连接路径数组中，连续三个顶点是否构成一个拐点
 	void PushVertex(int nV);
 	void PopVertex();
